@@ -1,0 +1,32 @@
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Sidebar transition */
+.sidebar-transition {
+    transition: all 0.3s ease-in-out;
+}
+
+/* Card Hover effect */
+.dashboard-card {
+    transition: transform 0.2s;
+}
+.dashboard-card:hover {
+    transform: translateY(-5px);
+}
+
+.active-nav {
+    background-color: #374151; /* Tailwind gray-700 */
+    border-left: 4px solid #3b82f6; /* Tailwind blue-500 */
+}

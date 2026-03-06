@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PyDash Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+
+    <div class="flex flex-col md:flex-row">
+        <!-- Sidebar -->
+        <nav id="sidebar" class="bg-gray-800 h-screen w-full md:w-64 fixed md:relative z-10 sidebar-transition hidden md:block">
+            <div class="p-6 text-white text-3xl font-bold border-b border-gray-700">
+                <i class="fas fa-chart-line mr-2 text-blue-500"></i>PyDash
+            </div>
+            <div class="mt-4">
+                <a href="/dashboard" class="block py-3 px-6 text-gray-300 hover:bg-gray-700 hover:text-white transition duration-200 {% if active_page == 'dashboard' %}active-nav text-white{% endif %}">
+                    <i class="fas fa-tachometer-alt mr-3"></i>Dashboard
+                </a>
+                <a href="/events" class="block py-3 px-6 text-gray-300 hover:bg-gray-700 hover:text-white transition duration-200 {% if active_page == 'events' %}active-nav text-white{% endif %}">
+                    <i class="fas fa-calendar-alt mr-3"></i>Events
+                </a>
+                <a href="/participants" class="block py-3 px-6 text-gray-300 hover:bg-gray-700 hover:text-white transition duration-200 {% if active_page == 'participants' %}active-nav text-white{% endif %}">
+                    <i class="fas fa-users mr-3"></i>Participants
+                </a>
+                <a href="/scoring" class="block py-3 px-6 text-gray-300 hover:bg-gray-700 hover:text-white transition duration-200 {% if active_page == 'scoring' %}active-nav text-white{% endif %}">
+                    <i class="fas fa-star mr-3"></i>Scoring
+                </a>
+                <a href="/leaderboard" class="block py-3 px-6 text-gray-300 hover:bg-gray-700 hover:text-white transition duration-200 {% if active_page == 'leaderboard' %}active-nav text-white{% endif %}">
+                    <i class="fas fa-trophy mr-3"></i>Leaderboard
+                </a>
+                <a href="/single-entry" class="block py-3 px-6 text-gray-300 hover:bg-gray-700 hover:text-white transition duration-200 {% if active_page == 'single-entry' %}active-nav text-white{% endif %}">
+                    <i class="fas fa-user-plus mr-3"></i>Single Entry
+                </a>
+            </div>
+            <div class="absolute bottom-0 w-full p-4 border-t border-gray-700">
+                <a href="/logout" class="flex items-center text-gray-400 hover:text-red-400 transition">
+                    <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                </a>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <div id="main" class="flex-1 h-screen overflow-y-auto">
+            <!-- Top Nav -->
+            <header class="bg-white shadow-md py-4 px-6 flex justify-between items-center sticky top-0 z-20">
+                <button id="mobile-menu-button" class="md:hidden text-gray-600 focus:outline-none">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+                <div class="flex items-center ml-auto">
+                    <div class="mr-4 text-right hidden sm:block">
+                        <p class="text-sm font-semibold text-gray-800">{{ user.full_name }}</p>
+                        <p class="text-xs text-gray-500">Administrator</p>
+                    </div>
+                    <img class="h-10 w-10 rounded-full border-2 border-blue-500 shadow-sm" src="https://ui-avatars.com/api/?name={{ user.full_name }}&background=3b82f6&color=fff" alt="User Avatar">
+                </div>
+            </header>
+
+            <main class="p-6">
+                {% block content %}{% endblock %}
+            </main>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('mobile-menu-button').onclick = function() {
+            var sidebar = document.getElementById('sidebar');
+            if (sidebar.classList.contains('hidden')) {
+                sidebar.classList.remove('hidden');
+            } else {
+                sidebar.classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="mb-8">
+    <h1 class="text-2xl font-bold text-gray-800">Record Scoring</h1>
+    <p class="text-gray-600">Assign points to participants for specific events</p>
+</div>
+
+<div class="max-w-2xl mx-auto">
+    <div class="bg-white rounded-xl shadow-lg p-8">
+        <form action="/scoring" method="POST">
+            <div class="mb-6">
+                <label class="block text-gray-700 font-bold mb-2">Select Event</label>
+                <select name="event_id" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none bg-white border-gray-300" required>
+                    <option value="" disabled selected>-- Select an Event --</option>
+                    {% for event in events %}
+                    <option value="{{ event.id }}">{{ event.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-6">
+                <label class="block text-gray-700 font-bold mb-2">Select Participant</label>
+                <select name="participant_id" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none bg-white border-gray-300" required>
+                    <option value="" disabled selected>-- Select a Participant --</option>
+                    {% for participant in participants %}
+                    <option value="{{ participant.id }}">{{ participant.name }} ({{ participant.department }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-8">
+                <label class="block text-gray-700 font-bold mb-2">Points Awarded</label>
+                <input type="number" step="0.1" name="points" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 border-gray-300" placeholder="e.g. 95.5" required>
+                <p class="text-xs text-gray-400 mt-2">Points can include decimals (e.g. 10.5)</p>
+            </div>
+
+            <div class="flex items-center justify-between">
+                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition duration-300 w-full md:w-auto">
+                    Submit Score
+                </button>
+                <a href="/dashboard" class="text-gray-500 hover:text-gray-700 text-sm font-semibold">Cancel</a>
+            </div>
+        </form>
+    </div>
+    
+    <div class="mt-8 bg-blue-50 p-6 rounded-xl border border-blue-100">
+        <h3 class="text-blue-800 font-bold flex items-center mb-2">
+            <i class="fas fa-info-circle mr-2"></i> Scoring Policy
+        </h3>
+        <p class="text-blue-700 text-sm leading-relaxed">
+            Ensure that scores are entered accurately. Once submitted, they will immediately reflect in the global leaderboard. Contact support for score corrections.
+        </p>
+    </div>
+</div>
+{% endblock %}

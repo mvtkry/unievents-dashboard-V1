@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="mb-8">
+    <h1 class="text-2xl font-bold text-gray-800">Participants List</h1>
+    <p class="text-gray-600">All registered participants and their affiliations</p>
+</div>
+
+<div class="bg-white rounded-xl shadow-sm overflow-hidden">
+    <div class="p-4 border-b flex flex-col md:flex-row justify-between items-center gap-4">
+        <div class="relative w-full md:w-64">
+            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                <i class="fas fa-search"></i>
+            </span>
+            <input type="text" placeholder="Search participants..." class="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+        <div class="flex gap-2">
+            <button class="px-4 py-2 border rounded-lg text-gray-600 hover:bg-gray-50">Filter</button>
+            <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Export CSV</button>
+        </div>
+    </div>
+    <div class="overflow-x-auto">
+        <table class="w-full text-left">
+            <thead class="bg-gray-50 text-gray-400 text-xs uppercase font-semibold">
+                <tr>
+                    <th class="px-6 py-4">Participant</th>
+                    <th class="px-6 py-4">Email</th>
+                    <th class="px-6 py-4">Department</th>
+                    <th class="px-6 py-4">Joined Date</th>
+                    <th class="px-6 py-4 text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100">
+                {% for participant in participants %}
+                <tr class="hover:bg-gray-50 transition">
+                    <td class="px-6 py-4 flex items-center">
+                        <img class="h-8 w-8 rounded-full mr-3" src="https://ui-avatars.com/api/?name={{ participant.name }}&background=random" alt="">
+                        <span class="font-bold text-gray-800">{{ participant.name }}</span>
+                    </td>
+                    <td class="px-6 py-4 text-gray-600">{{ participant.email }}</td>
+                    <td class="px-6 py-4">
+                        <span class="px-3 py-1 bg-purple-50 text-purple-600 rounded-full text-xs font-semibold">
+                            {{ participant.department }}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 text-gray-500 text-sm">{{ participant.joined_at.strftime('%b %d, %Y') }}</td>
+                    <td class="px-6 py-4 text-center">
+                        <button class="text-gray-400 hover:text-gray-600 mx-2"><i class="fas fa-ellipsis-v"></i></button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
